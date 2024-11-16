@@ -5,22 +5,30 @@ import java.util.Scanner;
 
 public class Processing {
     ArrayList<Student> studentList = new ArrayList<Student>();
+    Scanner courseScanner;
+    Scanner nameScanner;
 
     public Processing(File course, File name) {
         try {
-            Scanner courseScanner = new Scanner(course);
-            Scanner nameScanner = new Scanner(name);
+            courseScanner = new Scanner(course);
+            nameScanner = new Scanner(name);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        fileInput(course, name);
+        fileInput(courseScanner, nameScanner);
     }
 
-    private void fileInput(File course, File name) {
-
+    private void fileInput(Scanner course, Scanner name) {
+        while (course.hasNextLine()) {
+            String[] courseInfo = course.nextLine().split(",");
+            if (name.hasNextLine()) {
+                String[] nameInfo = name.nextLine().split(",");
+            }
+            studentList.add(new Student(null, null, null, null));
+        }
     }
 
 }

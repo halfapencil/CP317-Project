@@ -1,7 +1,7 @@
 public class Student {
 
     private String name;
-    private float grade;
+    private double grade;
     private String sId;
     private String courseId;
 
@@ -12,7 +12,7 @@ public class Student {
         this.grade = calculate(grades);
     }
 
-    private double calculate(double[] grades) {
+    private double calculate(float[] grades) {
 
         return (grades[0] * 0.2) + (grades[1] * 0.2) + (grades[2] * 0.2) + (grades[3] * 0.4);
     }
