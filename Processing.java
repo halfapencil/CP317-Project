@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,7 +14,7 @@ public class Processing {
     Scanner courseScanner;
     Scanner nameScanner;
 
-    public Processing(File course, File name) {
+    public Processing(File course, File name, File out) {
         try {
             courseScanner = new Scanner(course);
             nameScanner = new Scanner(name);
@@ -25,7 +27,7 @@ public class Processing {
         fileInput(courseScanner, nameScanner);
         calculateGrades();
         sortStudentList();
-        fileOutput();
+        fileOutput(out);
     }
 
     private void fileInput(Scanner course, Scanner name) {
@@ -83,5 +85,18 @@ public class Processing {
         // Swap the students in the ArrayList
         studentList.set(i, s2);
         studentList.set(i + 1, s1);
+    }
+
+    private void fileOutput(File outputFile) {
+        try {
+            FileWriter out = new FileWriter(outputFile);
+            for (Student s : studentList) {
+                out.write(s.toString() + "\n");
+            }
+            out.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
