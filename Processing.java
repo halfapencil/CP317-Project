@@ -94,10 +94,6 @@ public class Processing {
                 }
             }
         } while (swapped);
-
-        for (Student s : studentList) {
-            System.out.println(s.toString());
-        }
     }
 
     // Helper method for sorting
