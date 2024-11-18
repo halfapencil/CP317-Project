@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 
@@ -11,6 +12,11 @@ public class UserInterface extends JFrame {
     JLabel nameFileDir = new JLabel("None");
     JLabel outputFileDir = new JLabel("None");
     JLabel convertConfirmation = new JLabel();
+
+    JButton courseFileButton;
+    JButton nameFileButton;
+    JButton outputButton;
+    JButton convertButton;
 
     File course;
     File name;
@@ -36,7 +42,7 @@ public class UserInterface extends JFrame {
 
         // Create buttons
         JButton courseFileButton = new JButton("Course File");
-        JButton nameFileButton = new JButton("NameButton");
+        JButton nameFileButton = new JButton("Name File");
         JButton outputButton = new JButton("Output Destination");
         JButton convertButton = new JButton("Convert");
 
@@ -137,10 +143,20 @@ public class UserInterface extends JFrame {
     private void convert() {
 
         // If the three files exists, process the inputs and output to the output file
-        if (course.exists() && name.exists() && out.exists()) {
+        if (course != null && name != null && out != null) {
             new Processing(course, name, out);
             convertConfirmation.setText("Successfully converted");
         } else {
+            if (course == null) {
+                courseFileButton.setForeground(Color.RED);
+            }
+
+            if (name == null) {
+                nameFileButton.setForeground(Color.RED);
+            }
+            if (out == null) {
+                outputButton.setForeground(Color.RED);
+            }
             convertConfirmation.setText("Please add missing files");
         }
     }

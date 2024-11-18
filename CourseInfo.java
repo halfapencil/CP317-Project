@@ -6,19 +6,19 @@ public class CourseInfo {
     // Variables
     String studentId;
     String courseId;
-    double marks[] = new double[3];
+    double grade[] = new double[3];
 
     // Constructor method
-    public CourseInfo(String studentId, String courseId, double[] marks) {
+    public CourseInfo(String studentId, String courseId, double[] grade) {
         this.studentId = studentId;
         this.courseId = courseId;
-        this.marks = marks;
+        this.grade = grade;
     }
 
     // toString
     @Override
     public String toString() {
-        return "CourseInfo [studentId=" + studentId + ", courseId=" + courseId + ", marks=" + Arrays.toString(marks)
+        return "CourseInfo [studentId=" + studentId + ", courseId=" + courseId + ", grade=" + Arrays.toString(grade)
                 + "]";
     }
 
@@ -39,12 +39,12 @@ public class CourseInfo {
         this.courseId = courseId;
     }
 
-    public double[] getMarks() {
-        return marks;
+    public double[] getGrade() {
+        return grade;
     }
 
-    public void setMarks(double[] marks) {
-        this.marks = marks;
+    public void setGrade(double[] grade) {
+        this.grade = grade;
     }
 
 }

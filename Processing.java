@@ -68,7 +68,7 @@ public class Processing {
 
         // Using the courses to collect Student ID, Course ID, and Marks
         for (CourseInfo c : courseList) {
-            studentList.add(new Student(c.getStudentId(), c.getCourseId(), c.getMarks()));
+            studentList.add(new Student(c.getStudentId(), c.getCourseId(), c.getGrade()));
         }
 
         // uses the names list to match student IDs and names
@@ -106,12 +106,17 @@ public class Processing {
         studentList.set(i + 1, s1);
     }
 
+    // Method writes to the output file
     private void fileOutput(File outputFile) {
         try {
+            // Create a filewriter
             FileWriter out = new FileWriter(outputFile);
             for (Student s : studentList) {
+                // For every student, write the students information to the file
                 out.write(s.toString() + "\n");
             }
+
+            // Close the filewriter
             out.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
