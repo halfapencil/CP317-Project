@@ -1,18 +1,23 @@
+// Object used to store information about studentID and student name
 public class NameInfo {
 
+    // Variables
     String studentId;
     String name;
 
+    // Constructor method
     public NameInfo(String studentId, String name) {
         this.studentId = studentId;
         this.name = name;
     }
 
+    // toSstring method
     @Override
     public String toString() {
         return "NameInfo [studentId=" + studentId + ", name=" + name + "]";
     }
 
+    // Getters and Setters
     public String getStudentId() {
         return studentId;
     }

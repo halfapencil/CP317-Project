@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// Class for input, processing input, sorting, and output
 public class Processing {
 
+    // Variables
     ArrayList<CourseInfo> courseList = new ArrayList<CourseInfo>();
     ArrayList<NameInfo> nameList = new ArrayList<NameInfo>();
     ArrayList<Student> studentList = new ArrayList<Student>();
@@ -14,43 +16,62 @@ public class Processing {
     Scanner courseScanner;
     Scanner nameScanner;
 
+    // Constructor method that takes course and name as inputs and out as an output
+    // destination
     public Processing(File course, File name, File out) {
         try {
+
+            // Scanners for file reading
             courseScanner = new Scanner(course);
             nameScanner = new Scanner(name);
+
+            fileInput(courseScanner, nameScanner);
+            SetupStudent();
+            sortStudentList();
+            fileOutput(out);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        fileInput(courseScanner, nameScanner);
-        calculateGrades();
-        sortStudentList();
-        fileOutput(out);
     }
 
+    // Processing file input
     private void fileInput(Scanner course, Scanner name) {
+
+        // Loops through entire file
         while (course.hasNextLine()) {
+
+            // CSV structured like StudentID, Course, Test 1, Test 2, Test 3, Final Exam
             String[] l = course.nextLine().split(",");
             double grades[] = new double[4];
+
+            // Getting all the grades
             for (int i = 2; i < 6; i++) {
                 grades[i - 2] = Double.parseDouble(l[i]);
             }
             courseList.add(new CourseInfo(l[0], l[1], grades));
         }
 
+        // Loops through name files
         while (name.hasNextLine()) {
+
+            // CSV structured like studentID,Name
             String[] l = name.nextLine().split(",");
             nameList.add(new NameInfo(l[0], l[1]));
         }
     }
 
-    private void calculateGrades() {
+    // setup the student list to prepare for output
+    private void SetupStudent() {
+
+        // Using the courses to collect Student ID, Course ID, and Marks
         for (CourseInfo c : courseList) {
             studentList.add(new Student(c.getStudentId(), c.getCourseId(), c.getMarks()));
         }
 
+        // uses the names list to match student IDs and names
         for (NameInfo n : nameList) {
             for (Student s : studentList) {
                 if (n.getStudentId().equals(s.getStudentId())) {
@@ -60,6 +81,7 @@ public class Processing {
         }
     }
 
+    // Sorts the student list by student number
     private void sortStudentList() {
         boolean swapped;
         do {
@@ -78,6 +100,7 @@ public class Processing {
         }
     }
 
+    // Helper method for sorting
     private void swap(int i) {
         Student s1 = studentList.get(i);
         Student s2 = studentList.get(i + 1);
