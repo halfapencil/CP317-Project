@@ -23,7 +23,7 @@ public class Student {
     // toString method that returns a CSV of studentID,name,courseID,grade
     @Override
     public String toString() {
-        return studentId + "," + name + "," + courseId + "," + grade;
+        return studentId + "," + name + "," + courseId + ", " + grade;
     }
 
     // Getters and setters
