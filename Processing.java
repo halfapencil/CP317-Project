@@ -63,7 +63,6 @@ public class Processing {
                         
                     } catch (Exception e) {
                         error = true;
-                        System.err.println(e);
                     }
                 }
     
@@ -76,7 +75,10 @@ public class Processing {
                     courseList.add(new CourseInfo(l[0], l[1], grades));
     
             }
- 
+            if (errMessage.length() != 0){
+                errMessage = errMessage + " These lines contain invalid grades.";
+            }
+    
             // Loops through name files
             while (name.hasNextLine()) {
     
