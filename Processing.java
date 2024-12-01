@@ -13,7 +13,11 @@ public class Processing {
     ArrayList<NameInfo> nameList = new ArrayList<NameInfo>();
     ArrayList<Student> studentList = new ArrayList<Student>();
 
-    String errMessage = "";
+    String courseErrMessage = "Line ";
+    String nameErrMessage = "Line ";
+
+    boolean courseError = false;
+    boolean nameError = false;
 
     Scanner courseScanner;
     Scanner nameScanner;
@@ -41,11 +45,10 @@ public class Processing {
 
     // Processing file input
     private void fileInput(Scanner course, Scanner name) {
-        int count = 1;
-
+        int count = 0;
         // Loops through entire file
         while (course.hasNextLine()) {
-
+            count++;
             // CSV structured like StudentID, Course, Test 1, Test 2, Test 3, Final Exam
             String[] l = course.nextLine().split(",");
             double grades[] = new double[4];
@@ -53,17 +56,20 @@ public class Processing {
 
             // Error: Missing values
             if (l.length != 6) {
-                errMessage = errMessage + count + ",";
+                courseErrMessage = courseErrMessage + count + ",";
                 error = true;
-            }
-            for (String s : l) {
-                if (s.equals("")) {
-                    errMessage = errMessage + count + ",";
-                    error = true;
+            } else {
+                for (String s : l) {
+                    if (s.trim().isEmpty()) {
+                        courseErrMessage = courseErrMessage + count + ",";
+                        error = true;
+                        break;
+                    }
                 }
             }
 
             if (error) {
+                courseError = true;
                 continue;
             }
             // Getting all the grades
@@ -81,34 +87,44 @@ public class Processing {
                 }
             }
 
-            count++;
-
             // List the lines which contain illegal inputs
             if (error) {
-                errMessage = errMessage + count + ",";
+                courseError = true;
+                courseErrMessage = courseErrMessage + count + ",";
             } else
                 courseList.add(new CourseInfo(l[0], l[1], grades));
-
         }
 
         // End the error message
-        if (errMessage.length() != 0) {
-            errMessage = errMessage + " These lines contain invalid grades.";
+        if (courseErrMessage.length() != 0) {
+            courseErrMessage = courseErrMessage + " contain invalid inputs ";
         }
 
         // Loops through name files
+        count = 0;
         while (name.hasNextLine()) {
-
+            count++;
+            boolean error = false;
             // CSV structured like studentID,Name
             String[] l = name.nextLine().split(",");
 
-            nameList.add(new NameInfo(l[0], l[1]));
+            if (l.length != 2 || l[0].trim().isEmpty() || l[1].trim().isEmpty()) {
+                error = true;
+
+            } else
+                nameList.add(new NameInfo(l[0], l[1]));
+
+            if (error) {
+                nameError = true;
+                nameErrMessage = nameErrMessage + count + ",";
+            }
         }
+        System.out.println(nameList);
+        nameErrMessage = nameErrMessage + "contains invalid inputs ";
     }
 
     // setup the student list to prepare for output
     private void SetupStudent() {
-
         // Using the courses to collect Student ID, Course ID, and Marks
         for (CourseInfo c : courseList) {
             studentList.add(new Student(c.getStudentId(), c.getCourseId(), c.getGrade()));
@@ -121,6 +137,12 @@ public class Processing {
                     s.setName(n.getName());
                 }
             }
+        }
+
+        for (int i = 0; i < studentList.size(); i++) {
+            if (studentList.get(i).getName() == null || studentList.get(i).getClass() == null
+                    || studentList.get(i).getStudentId() == null)
+                studentList.remove(i);
         }
     }
 
@@ -167,7 +189,19 @@ public class Processing {
         }
     }
 
-    public String getErrMessage() {
-        return errMessage;
+    public String getCourseErrMessage() {
+        return "<html>" + courseErrMessage + "in Course File " + "</html>";
+    }
+
+    public String getNameErrMessage() {
+        return "<html>" + nameErrMessage + "in Name File " + "</html>";
+    }
+
+    public boolean getNameError() {
+        return nameError;
+    }
+
+    public boolean getCourseError() {
+        return courseError;
     }
 }

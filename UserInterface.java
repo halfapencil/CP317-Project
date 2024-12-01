@@ -13,6 +13,8 @@ public class UserInterface extends JFrame {
     JLabel outputFileDir = new JLabel("None");
 
     JLabel courseErrorLabel = new JLabel();
+    JLabel nameErrorLabel = new JLabel();
+
     static JLabel convertConfirmation = new JLabel();
 
     JButton courseFileButton;
@@ -58,7 +60,8 @@ public class UserInterface extends JFrame {
         outputFileDir.setBounds(10, 300, 400, 30);
         convertButton.setBounds(10, 350, 200, 30);
         convertConfirmation.setBounds(10, 400, 400, 30);
-        courseErrorLabel.setBounds(220, 50, 200, 30);
+        courseErrorLabel.setBounds(220, 20, 200, 90);
+        nameErrorLabel.setBounds(220, 120, 200, 90);
 
         // Add to the window
         add(courseFileButton);
@@ -71,6 +74,8 @@ public class UserInterface extends JFrame {
         add(outputFileDir);
         add(convertConfirmation);
 
+        add(courseErrorLabel);
+        add(nameErrorLabel);
         // Add action listeners to allow buttons to function
         courseFileButton.addActionListener(e -> course = openFileChooser("course"));
         nameFileButton.addActionListener(e -> name = openFileChooser("name"));
@@ -166,8 +171,11 @@ public class UserInterface extends JFrame {
             }
             errorMessage(convertConfirmation, "Please add missing files");
         }
-        if (process.getErrMessage().length() > 0) {
-            errorMessage(courseErrorLabel, process.getErrMessage());
+        if (process.getCourseError()) {
+            errorMessage(courseErrorLabel, process.getCourseErrMessage());
+        }
+        if (process.getNameError()) {
+            errorMessage(nameErrorLabel, process.getNameErrMessage());
         }
 
     }

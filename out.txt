@@ -1,0 +1,12 @@
+150295440, Abdurrahman Person, ST259, 84.2
+150295440, Abdurrahman Person, BI111, 77.4
+229922406, Zaynah Alfaro, CP317, 65.4
+229922406, Zaynah Alfaro, EC120, 73.4
+306851690, Bevan Morton, EC120, 59.8
+413787382, Markus Cote, BU415, 63.8
+423091466, Zena Webster, PS262, 63.8
+454730171, Elouise Kouma, BU415, 66.4
+510661066, Ebrahim Lloyd, ST260, 82.4
+510661066, Ebrahim Lloyd, BU352, 81.8
+620731804, Rudy Begum, MA200, 67.8
+620731804, Rudy Begum, PS263, 69.4
