@@ -76,7 +76,7 @@ public class Processing {
             for (int i = 2; i < 6; i++) {
                 try {
                     // Error: Negative grades
-                    if (Double.parseDouble(l[i]) < 0) {
+                    if (Double.parseDouble(l[i]) < 0 || Double.parseDouble(l[i]) > 100) {
                         error = true;
                         break;
                     } else
